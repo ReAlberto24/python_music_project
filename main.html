@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main_page</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Readex+Pro:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+</head>
+<body onload="body_load_parent();">
+    <style>
+        * {
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        body::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        body::-webkit-scrollbar-thumb {
+            background-color: rgb(172, 172, 172);
+            border-radius: 10px;
+        }
+
+        body {
+            margin: 0px 30px;
+        }
+
+        hr.solid {
+            border-top: 3px solid #bbb;
+        }
+    </style>
+    
+<!-- script -->
+</body>
+<script>
+    function body_load_parent() {
+        // window.parent.postMessage('{"Hello": "World!"}', '*');
+    }
+
+    function load_player_song(video_id) {
+        window.parent.postMessage('{"type": "downloading"}', '*');
+        var xhr = new XMLHttpRequest();
+        
+        xhr.open('GET', `/player/add?video_id=${video_id}`);
+        xhr.send();
+        
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                window.parent.postMessage('{"type": "download"}', '*');
+            }
+        };
+    }
+</script>
+</html>

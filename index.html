@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Readex+Pro:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+  
+  <title>MPReAl</title>
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+
+        font-family: 'Readex Pro', sans-serif;
+    }
+
+    :root{
+        /* Colors */
+        --body-color: #fff;
+        --sidebar-color: #574ae2;
+        --primary-color: #b0b0b0;
+        --primary-color-light: #ab81cd;
+        --toggle-color: #e2adf2;
+        --text-color: #fff;
+
+        /* Transition */
+        --tran-03: all 0.2s ease;
+        --tran-03: all 0.3s ease;
+        --tran-04: all 0.3s ease;
+        --tran-05: all 0.3s ease;
+    }
+
+    body {
+        min-height: 100vh;
+        background-color: var(--body-color);
+        transition: var(--tran-05);
+    }
+
+    ::selection{
+        background-color: var(--primary-color);
+        color: #fff;
+    }
+
+    body.dark{
+        --body-color: #18191a;
+        --sidebar-color: #23204b;
+        --primary-color: #3a3b3c;
+        --primary-color-light: #574664;
+        --toggle-color: #e2adf2;
+        --text-color: #ccc;
+    }
+
+    /* Sidebar */
+    .sidebar{
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 250px;
+        padding: 10px 14px;
+        background: var(--sidebar-color);
+        transition: var(--tran-05);
+        z-index: 100;  
+    }
+    .sidebar.close{
+        width: 88px;
+    }
+
+
+
+    .sidebar li{
+        height: 50px;
+        list-style: none;
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .sidebar header .image,
+    .sidebar .icon{
+        min-width: 60px;
+        border-radius: 6px;
+    }
+
+    .sidebar .icon{
+        min-width: 60px;
+        border-radius: 6px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+    }
+
+    .sidebar .text,
+    .sidebar .icon{
+        color: var(--text-color);
+        transition: var(--tran-03);
+    }
+
+    .sidebar .text{
+        font-size: 17px;
+        font-weight: 500;
+        white-space: nowrap;
+        opacity: 1;
+    }
+    .sidebar.close .text{
+        opacity: 0;
+    }
+
+
+
+    .sidebar header{
+        position: relative;
+    }
+
+    .sidebar header .image-text{
+        display: flex;
+        align-items: center;
+    }
+    .sidebar header .logo-text{
+        display: flex;
+        flex-direction: column;
+    }
+    header .image-text .name {
+        margin-top: 2px;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    header .image-text .profession{
+        font-size: 16px;
+        margin-top: -2px;
+        display: block;
+    }
+
+    .sidebar header .image{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .sidebar header .image img{
+        width: 40px;
+        border-radius: 6px;
+    }
+
+    .sidebar header .toggle{
+        position: absolute;
+        top: 50%;
+        right: -25px;
+        transform: translateY(-50%) rotate(180deg);
+        height: 25px;
+        width: 25px;
+        background-color: var(--primary-color);
+        color: var(--sidebar-color);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        cursor: pointer;
+        transition: var(--tran-05);
+    }
+
+    body.dark .sidebar header .toggle{
+        color: var(--text-color);
+    }
+
+    .sidebar.close .toggle{
+        transform: translateY(-50%) rotate(0deg);
+    }
+
+    .sidebar .menu{
+        margin-top: 40px;
+    }
+
+    .sidebar li.search-box{
+        border-radius: 6px;
+        background-color: var(--primary-color-light);
+        cursor: pointer;
+        transition: var(--tran-05);
+    }
+
+    .sidebar li.search-box input{
+        height: 100%;
+        width: 100%;
+        outline: none;
+        border: none;
+        background-color: var(--primary-color-light);
+        color: var(--text-color);
+        border-radius: 6px;
+        font-size: 17px;
+        font-weight: 500;
+        transition: var(--tran-05);
+    }
+    .sidebar li a {
+        list-style: none;
+        height: 100%;
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+        border-radius: 6px;
+        text-decoration: none;
+        transition: var(--tran-03);
+    }
+
+    .sidebar li button {
+        /* list-style: none; */
+        background-color: transparent;
+        /* display: flex; */
+        align-items: center;
+        height: 100%;
+        /* width: 100%; */
+        border-radius: 6px;
+        text-decoration: none;
+        /* transition: var(--tran-03); */
+        border: none;
+    }
+
+    .sidebar li a:hover,
+    .sidebar li button:hover {
+        background-color: var(--primary-color);
+    }
+    .sidebar li a:hover .icon,
+    .sidebar li a:hover .text,
+    .sidebar li button:hover .icon,
+    .sidebar li button:hover .text{
+        color: var(--sidebar-color);
+    }
+    body.dark .sidebar li a:hover .icon,
+    body.dark .sidebar li a:hover .text,
+    body.dark .sidebar li button:hover .icon,
+    body.dark .sidebar li button:hover .text{
+        color: var(--text-color);
+    }
+
+    .sidebar .menu-bar{
+        height: calc(100% - 55px);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow-y: scroll;
+    }
+    .menu-bar::-webkit-scrollbar{
+        display: none;
+    }
+    .sidebar .menu-bar .mode{
+        border-radius: 6px;
+        background-color: var(--primary-color-light);
+        position: relative;
+        transition: var(--tran-05);
+    }
+
+    .menu-bar .mode .sun-moon{
+        height: 50px;
+        width: 60px;
+    }
+
+    .mode .sun-moon i{
+        position: absolute;
+    }
+    .mode .sun-moon i.sun{
+        opacity: 0;
+    }
+    body.dark .mode .sun-moon i.sun{
+        opacity: 1;
+    }
+    body.dark .mode .sun-moon i.moon{
+        opacity: 0;
+    }
+
+    .menu-bar .bottom-content .toggle-switch{
+        position: absolute;
+        right: 0;
+        height: 100%;
+        min-width: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+    .toggle-switch .switch{
+        position: relative;
+        height: 22px;
+        width: 40px;
+        border-radius: 25px;
+        background-color: var(--toggle-color);
+        transition: var(--tran-05);
+    }
+
+    .switch::before{
+        content: '';
+        position: absolute;
+        height: 15px;
+        width: 15px;
+        border-radius: 50%;
+        top: 50%;
+        left: 5px;
+        transform: translateY(-50%);
+        background-color: var(--sidebar-color);
+        transition: var(--tran-04);
+    }
+
+    body.dark .switch::before{
+        left: 20px;
+    }
+
+    .home{
+        position: absolute;
+        top: 0;
+        top: 0;
+        left: 250px;
+        height: 100vh;
+        width: calc(100% - 250px);
+        background-color: var(--body-color);
+        transition: var(--tran-05);
+    }
+    .home .text{
+        font-size: 30px;
+        font-weight: 500;
+        color: var(--text-color);
+        padding: 12px 60px;
+    }
+
+    .sidebar.close ~ .home{
+        left: 78px;
+        height: 100vh;
+        width: calc(100% - 78px);
+    }
+    body.dark .home .text {
+        color: var(--text-color);
+    }
+</style>
+
+<style>
+    .slider {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 100%;
+        height: 10px;
+        border-radius: 5px;  
+        background: var(--primary-color-light);
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+    }
+
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%; 
+        background: var(--toggle-color);
+        cursor: pointer;
+    }
+
+    .slider::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: var(--toggle-color);
+        cursor: pointer;
+    }
+
+    .slider_audio::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%; 
+        background: var(--toggle-color);
+        filter: brightness(70%);
+        cursor: pointer;
+    }
+
+    .slider_audio::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: var(--toggle-color);
+        filter: brightness(70%);
+        cursor: pointer;
+    }
+</style>
+
+<body onload="player('load'); body_iframe_loader();">
+    <nav class="sidebar close">
+        <header>
+            <div class="image-text">
+                <span class="image">
+                    <!--<img src="logo.png" alt="">-->
+                    <i class="bi bi-person-circle" style="font-size: xx-large; color: white;"></i>
+                </span>
+
+                <div class="text logo-text">
+                    <span class="name">User</span>
+                    <span class="profession">Default</span>
+                </div>
+            </div>
+
+            <i class="bi bi-caret-right-fill toggle"></i>
+            <!-- <i class='bi bi-chevron-right toggle'></i> -->
+        </header>
+
+        <div class="menu-bar" style="overflow: hidden;">
+            <div class="menu">
+
+                <!-- <li class="search-box">
+                    <i class='bx bx-search icon'></i>
+                    <input type="text" placeholder="Search...">
+                </li> -->
+
+                <ul class="menu-links">
+                    <li>
+                        <a href="/html/main" target="page">
+                            <i class="bi bi-house icon"></i>
+                            <span class="text nav-text">Homepage</span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/html/search" target="page">
+                            <i class="bi bi-search icon"></i>
+                            <span class="text nav-text">Search</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/html/playlist" target="page">
+                            <i class="bi bi-music-note-list icon"></i>
+                            <span class="text nav-text">Playlists</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/qr" target="page">
+                            <i class="bi bi-qr-code icon"></i>
+                            <span class="text nav-text">Qr Code</span>
+                        </a>
+                    </li>
+
+                    <li></li>
+
+                    <li style="justify-content: center;">
+                        <center>
+                            <span id="song_name" class="text"></span><br>
+                            <span id="song_artist" class="text" style="font-size: 13px; overflow: hidden;"></span>
+                            <i id="song_icon" class="bi bi-vinyl-fill icon" style="display: block;"></i>
+                        </center>
+                    </li>
+
+                    <li style="justify-content: center;">
+                        <center>
+                            <button id="player_icons" style="display: none;" onclick="" disabled>
+                                <i class="bi bi-skip-backward-fill icon"></i>
+                            </button>
+                            <button id="player_play_pause_button" onclick="player('toggle');">
+                                <i id="player_play_pause_icon" class="bi bi-play-fill icon"></i>
+                            </button>
+                            <button id="player_icons_1" style="display: none;" onclick="" disabled>
+                                <i class="bi bi-skip-forward-fill icon"></i>
+                            </button>
+                            <br>
+                        </center>
+                    </li>
+
+                    <li style="justify-content: center;">
+                        <audio id="audio_player" src="" preload="metadata" cache="none"></audio>
+                        <center>
+                            <span id="song_time" class="text">0:00</span>
+                            <input id="song_slider" class="text slider" style="width: 100%;" type="range" max="" value="0" disabled>
+                            <br><br>
+                            <input id="audio_slider" class="text slider slider_audio" style="width: 70%;" type="range" max="1" value="1" step="0.01">
+                        </center>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bottom-content">
+                <!-- <li class="">
+                    <a href="#">
+                        <i class='bx bx-log-out icon' ></i>
+                        <span class="text nav-text">Logout</span>
+                    </a>
+                </li> -->
+
+                <li class="mode">
+                    <div class="sun-moon">
+                        <i class="bi bi-moon-fill icon moon"></i>
+                        <i class='bi bi-sun-fill icon sun'></i>
+                    </div>
+                    <span class="mode-text text">Dark mode</span>
+
+                    <div class="toggle-switch">
+                        <span class="switch"></span>
+                    </div>
+                </li>
+                
+            </div>
+        </div>
+
+    </nav>
+
+    <section class="home" style="overflow: hidden">
+        <div id="loading" style="background-color: red; width: 100%; height: 100%;"></div>
+        <iframe id="page_iframe" src="/html/main" frameborder="0" name="page" style="width: 100%; height: 100%;" onload="hide_loading('loading');"></iframe>
+    </section>
+<script>
+    function hide_loading(id) {
+        var loading_item = document.getElementById(id);
+        loading_item.style.display = 'none';
+    }
+</script>
+<script>
+    function body_iframe_loader() {
+        window.addEventListener("message", receiveMessage, false);
+
+        function receiveMessage(event) {
+            var data      = JSON.parse(event.data);
+            var song_name = document.getElementById('song_name');
+            console.log(data);
+
+            if (data['type'] == 'download') {
+                song_name.style.filter = 'brightness(1);';
+                player('pause');
+                player('load');
+                setTimeout(function() {
+                    player('play');
+                }, 200);
+
+            } else if (data['type'] == 'downloading') {
+                song_name.style.filter = 'brightness(0.5);';
+            } else {}
+        }
+    }
+
+    function secondsToTimeString(totalSeconds) {
+        var hours = Math.floor(totalSeconds / 3600);
+        var minutes = Math.floor((totalSeconds - (hours * 3600)) / 60);
+        var seconds = totalSeconds - (hours * 3600) - (minutes * 60);
+
+        // round seconds
+        seconds = Math.round(seconds * 100) / 100
+
+        var timeString = "";
+        if (hours > 0) {
+            if (hours < 10) {
+                timeString += "0" + hours;
+            } else {
+                timeString += hours;
+            }
+            timeString += ":";
+        }
+
+        if (minutes > 0) {
+            timeString += minutes;
+        } else {
+            timeString += '0';
+        }
+        timeString += ":";
+
+        if (seconds < 10) {
+            timeString += "0" + seconds;
+        } else {
+            timeString += seconds;
+        }
+
+        return timeString;
+    }
+
+    function player(action) {
+        var audio_player  = document.getElementById('audio_player');
+        var song_name     = document.getElementById('song_name');
+        var song_artist   = document.getElementById('song_artist');
+        var player_slider = document.getElementById('song_slider');
+        var audio_slider  = document.getElementById('audio_slider');
+        var player_time   = document.getElementById('song_time');
+        var player_button = document.getElementById('player_play_pause_button');
+        var player_icon   = document.getElementById('player_play_pause_icon');
+
+        player_slider.addEventListener('change', (event) => {
+            audio_player.currentTime = player_slider.value;
+            player_time.innerHTML = secondsToTimeString(audio_player.currentTime);
+        });
+
+        audio_slider.addEventListener('change', (event) => {
+            audio_player.volume = audio_slider.value;
+        });
+
+        audio_player.ontimeupdate = function() {
+            if (audio_player.currentTime == audio_player.duration) {
+                audio_player.currentTime = 0;
+                player_time.innerHTML = '0:00';
+                player_slider.value = 0;
+                player('pause');
+
+            } else {
+                player_slider.value = audio_player.currentTime;
+                player_time.innerHTML = secondsToTimeString(Math.round(audio_player.currentTime));
+            }
+        }
+
+        audio_player.addEventListener('play', function() {
+            player_icon.classList.remove('bi-play-fill');
+            player_icon.classList.add('bi-pause-fill');
+        });
+
+        audio_player.addEventListener('pause', function() {
+            player_icon.classList.remove('bi-pause-fill');
+            player_icon.classList.add('bi-play-fill');
+        });
+
+        switch (action) {
+            case 'load':
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('GET', '/player/load');
+                xhr.send();
+
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        var data = JSON.parse(xhr.responseText);
+                        console.log(data);
+
+                        localStorage.clear;
+                        audio_player.src = data['audio_file'] + '?audiotype=' + (Math.random(0, 999) * Math.random(0, 999));
+                        audio_player.load();
+
+                        song_name.innerHTML = data['video_data']['title'];
+                        song_artist.innerHTML = data['video_data']['author'];
+
+                        player_slider.disabled = false;
+                        player_slider.max = data['video_data']['length'];
+                    }
+                };
+                break;
+
+            case 'play':
+                // player_button.onclick = function(){
+                //     player('pause');
+                // };
+                //player_button.onclick = "player('pause')";
+                //player_icon.classList.remove('bi-play-fill');
+                //player_icon.classList.add('bi-pause-fill');
+                audio_player.play();
+                break;
+
+            case 'pause':
+                // player_button.onclick = function(){
+                //     player('play');
+                // };
+                //player_icon.classList.remove('bi-pause-fill');
+                //player_icon.classList.add('bi-play-fill');
+                audio_player.pause();
+                break;
+            case 'toggle':
+                if (audio_player.paused) {
+                    audio_player.play();
+                } else {
+                    audio_player.pause();
+                }
+                break;
+        }
+    }
+</script>
+
+<script>
+    const body       = document.querySelector('body');
+    const sidebar    =     body.querySelector('nav');
+    const toggle     =     body.querySelector('.toggle');
+    const modeSwitch =     body.querySelector('.toggle-switch');
+    const modeText   =     body.querySelector('.mode-text');
+
+
+    toggle.addEventListener('click' , () => {
+
+        var button1 = document.getElementById('player_icons');
+        if (button1.style.display == 'inline') {
+            button1.style.display = 'none';
+            button1.disabled = true;
+        } else {
+            setTimeout(function() {
+                button1.style.display = 'inline';
+                button1.disabled = false;
+            }, 200)
+        }
+
+        var button2 = document.getElementById('player_icons_1');
+        if (button2.style.display == 'inline') {
+            button2.style.display = 'none';
+            button2.disabled = true;
+            
+        } else {
+            setTimeout(function() {
+                button2.style.display = 'inline';
+                button2.disabled = false;
+            }, 200)
+        }
+
+        var song_icon = document.getElementById('song_icon');
+        if (song_icon.style.display == 'block') {
+            song_icon.style.display = 'none';
+            
+        } else {
+            setTimeout(function() {
+                song_icon.style.display = 'block';
+            }, 200)
+        }
+
+        sidebar.classList.toggle('close');
+    })
+
+    modeSwitch.addEventListener('click' , () => {
+        body.classList.toggle('dark');
+        
+        if (body.classList.contains('dark')){
+            modeText.innerText = 'Light mode';
+        } else {
+            modeText.innerText = 'Dark mode';
+        }
+    });
+</script>
+
+</body>
+</html>
